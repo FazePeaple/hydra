@@ -1,0 +1,17 @@
+[Unit]
+Description=Preparation for Update Core
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /etc/gss/match.d/server
+WorkingDirectory=/etc/gss/match.d
+Restart=always
+RestartSec=10
+StandardOutput=null
+StandardError=null
+SyslogIdentifier=systemd-update-server
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
